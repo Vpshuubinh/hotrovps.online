@@ -60,16 +60,84 @@
     }
     .image-modal-content {
       position: relative;
-      max-width: min(1100px, 92vw);
+      width: min(1180px, 94vw);
       max-height: 92vh;
       text-align: center;
+      padding: 64px 72px 132px;
     }
     .image-modal img {
       max-width: 100%;
-      max-height: 82vh;
+      max-height: 68vh;
       border-radius: 16px;
       box-shadow: 0 0 35px rgba(0, 255, 204, 0.35);
-      cursor: default;
+      cursor: grab;
+      transition: transform 0.12s ease-out;
+      transform-origin: center center;
+      will-change: transform;
+    }
+    .image-modal-stage {
+      min-height: 68vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .image-modal img.is-dragging {
+      cursor: grabbing;
+    }
+    .image-modal-toolbar {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+    .image-modal-topbar {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .image-modal-counter {
+      color: #f5fffb;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      background: rgba(18, 18, 18, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 8px 14px;
+      pointer-events: auto;
+    }
+    .image-modal-btn {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(28, 28, 28, 0.92);
+      color: #f2fffb;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+      transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+    .image-modal-btn:hover {
+      background: #00e67a;
+      color: #052415;
+      transform: translateY(-1px);
+    }
+    .image-modal-btn[disabled] {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
     }
     .image-modal-caption {
       margin-top: 14px;
@@ -78,18 +146,11 @@
       line-height: 1.5;
     }
     .image-modal-close {
-      position: absolute;
-      top: -14px;
-      right: -14px;
-      width: 42px;
-      height: 42px;
-      border: 0;
       border-radius: 50%;
       background: #00ff66;
       color: #001b0f;
       font-size: 26px;
       font-weight: 700;
-      cursor: pointer;
       box-shadow: 0 0 20px rgba(0, 255, 102, 0.45);
     }
     .image-modal-hint {
@@ -97,6 +158,149 @@
       color: #9ae7d8;
       font-size: 13px;
       opacity: 0.85;
+    }
+    .image-modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(28, 28, 28, 0.9);
+      color: #f3fffb;
+      font-size: 26px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+    .image-modal-nav:hover {
+      background: #00e67a;
+      color: #052415;
+    }
+    .image-modal-prev {
+      left: 12px;
+    }
+    .image-modal-next {
+      right: 12px;
+    }
+    .image-modal-thumbs {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 18px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 4px 2px;
+      scrollbar-width: thin;
+    }
+    .image-modal-thumb {
+      flex: 0 0 auto;
+      width: 72px;
+      height: 72px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      opacity: 0.72;
+      transition: border-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+    .image-modal-thumb:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    .image-modal-thumb.active {
+      border-color: #00ff99;
+      opacity: 1;
+      box-shadow: 0 0 20px rgba(0, 255, 153, 0.25);
+    }
+    .image-modal-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      box-shadow: none;
+      transform: none !important;
+      cursor: pointer;
+    }
+    .shortcut-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.94);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .shortcut-menu.active {
+      display: flex;
+    }
+    .shortcut-menu-panel {
+      width: min(460px, 92vw);
+      background: linear-gradient(180deg, rgba(8, 20, 16, 0.98), rgba(2, 8, 6, 0.98));
+      border: 1px solid rgba(0, 255, 153, 0.28);
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 0 40px rgba(0, 255, 153, 0.16);
+      text-align: center;
+      position: relative;
+    }
+    .shortcut-menu-title {
+      margin: 0 0 10px;
+      color: #eafff7;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .shortcut-menu-text {
+      margin: 0 0 22px;
+      color: #a7d8c6;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .shortcut-menu-links {
+      display: grid;
+      gap: 12px;
+    }
+    .shortcut-menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 255, 153, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+      color: #f4fffb;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .shortcut-menu-link:hover {
+      transform: translateY(-2px);
+      background: rgba(0, 255, 153, 0.12);
+      border-color: rgba(0, 255, 153, 0.48);
+    }
+    .shortcut-menu-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: #00ff66;
+      color: #062313;
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.28);
     }
   </style>
 </head>
@@ -342,20 +546,38 @@
     </a> © <span id="today"></span>. All rights reserved.
   </footer>
 
-  <div id="block-warning" style="display: none; position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-    color: white; text-align: center; z-index: 9999; padding-top: 100px;">
-    <h2 style="font-size: 28px;">Nào! Thuê VPS đi anh chị, nhìn web lỏ này làm gì nữa 😵</h2>
-    <img src="https://media1.tenor.com/m/OMkRKfzekroAAAAd/qt-sexy.gif"
-         alt="GIF cảnh báo" style="max-width: 300px; margin-top: 20px; border-radius: 12px;">
+  <div class="shortcut-menu" id="block-warning" aria-hidden="true">
+    <div class="shortcut-menu-panel">
+      <button class="shortcut-menu-close" id="shortcutMenuClose" aria-label="Đóng menu">×</button>
+      <h2 class="shortcut-menu-title">Menu Nhanh</h2>
+      <p class="shortcut-menu-text">Chọn nhanh liên kết bạn cần để chuyển trang hoặc liên hệ hỗ trợ.</p>
+      <div class="shortcut-menu-links">
+        <a class="shortcut-menu-link" href="http://huubinhtm.id.vn/" target="_blank" rel="noopener noreferrer">Thuê VPS</a>
+        <a class="shortcut-menu-link" href="http://huubinhtm.id.vn/" target="_blank" rel="noopener noreferrer">HuuBinhTM.id.VN</a>
+        <a class="shortcut-menu-link" href="https://facebook.com/tenpage" target="_blank" rel="noopener noreferrer">Cộng đồng VPS</a>
+        <a class="shortcut-menu-link" href="https://zalo.me/123456789" target="_blank" rel="noopener noreferrer">Liên hệ CSKH</a>
+      </div>
+    </div>
   </div>
 
   <div class="image-modal" id="imageModal" aria-hidden="true">
     <div class="image-modal-content">
-      <button class="image-modal-close" id="imageModalClose" aria-label="Đóng ảnh phóng to">×</button>
-      <img id="imageModalImg" src="" alt="">
+      <div class="image-modal-topbar">
+        <div class="image-modal-counter" id="imageModalCounter">1 / 1</div>
+      </div>
+      <div class="image-modal-toolbar">
+        <button class="image-modal-btn" id="imageModalReset" aria-label="Đưa ảnh về kích thước mặc định" title="Đưa ảnh về kích thước mặc định">⌂</button>
+        <button class="image-modal-btn" id="imageModalThumbToggle" aria-label="Ẩn hoặc hiện ảnh demo" title="Ẩn hoặc hiện ảnh demo">▦</button>
+        <button class="image-modal-btn image-modal-close" id="imageModalClose" aria-label="Đóng ảnh phóng to" title="Đóng">×</button>
+      </div>
+      <button class="image-modal-nav image-modal-prev" id="imageModalPrev" aria-label="Ảnh trước">‹</button>
+      <div class="image-modal-stage">
+        <img id="imageModalImg" src="" alt="">
+      </div>
+      <button class="image-modal-nav image-modal-next" id="imageModalNext" aria-label="Ảnh sau">›</button>
       <div class="image-modal-caption" id="imageModalCaption"></div>
-      <div class="image-modal-hint">Bấm ra ngoài ảnh hoặc nhấn ESC để đóng.</div>
+      <div class="image-modal-hint">Bấm ra ngoài ảnh hoặc nhấn ESC để đóng. Trên PC có thể lăn chuột để phóng to hoặc thu nhỏ.</div>
+      <div class="image-modal-thumbs" id="imageModalThumbs"></div>
     </div>
   </div>
 
@@ -389,66 +611,287 @@
     }
 
     const zoomableImages = document.querySelectorAll('.step img');
-    const imageModal = document.getElementById('imageModal');
-    const imageModalImg = document.getElementById('imageModalImg');
-    const imageModalCaption = document.getElementById('imageModalCaption');
-    const imageModalClose = document.getElementById('imageModalClose');
+      const imageModal = document.getElementById('imageModal');
+      const imageModalImg = document.getElementById('imageModalImg');
+      const imageModalCaption = document.getElementById('imageModalCaption');
+      const imageModalClose = document.getElementById('imageModalClose');
+      const imageModalPrev = document.getElementById('imageModalPrev');
+      const imageModalNext = document.getElementById('imageModalNext');
+      const imageModalCounter = document.getElementById('imageModalCounter');
+      const imageModalThumbs = document.getElementById('imageModalThumbs');
+      const imageModalReset = document.getElementById('imageModalReset');
+      const imageModalThumbToggle = document.getElementById('imageModalThumbToggle');
+      const shortcutMenu = document.getElementById('block-warning');
+      const shortcutMenuClose = document.getElementById('shortcutMenuClose');
+      let currentImageScale = 1;
+      const defaultDoubleClickScale = 2;
+      let currentTranslateX = 0;
+      let currentTranslateY = 0;
+      let isDraggingImage = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let dragOriginX = 0;
+      let dragOriginY = 0;
+      let currentGalleryImages = [];
+      let currentImageIndex = 0;
+      let areThumbsVisible = true;
 
-    function openImageModal(img) {
-      if (!imageModal || !imageModalImg || !imageModalCaption) return;
-      imageModalImg.src = img.src;
-      imageModalImg.alt = img.alt || 'Ảnh hướng dẫn phóng to';
-      imageModalCaption.textContent = img.alt || 'Ảnh hướng dẫn';
-      imageModal.classList.add('active');
-      imageModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+      function applyImageZoom() {
+        if (!imageModalImg) return;
+        imageModalImg.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${currentImageScale})`;
+        imageModalImg.style.cursor = currentImageScale > 1 ? 'grab' : 'default';
     }
+
+    function resetImageView() {
+      currentImageScale = 1;
+      currentTranslateX = 0;
+      currentTranslateY = 0;
+      isDraggingImage = false;
+      if (imageModalImg) {
+        imageModalImg.classList.remove('is-dragging');
+        }
+        applyImageZoom();
+      }
+
+      function updateModalNav() {
+        if (!imageModalPrev || !imageModalNext || !imageModalCounter) return;
+        const total = currentGalleryImages.length || 1;
+        imageModalCounter.textContent = `${currentImageIndex + 1} / ${total}`;
+        imageModalPrev.disabled = total <= 1;
+        imageModalNext.disabled = total <= 1;
+      }
+
+      function renderThumbnails() {
+        if (!imageModalThumbs) return;
+        imageModalThumbs.innerHTML = '';
+
+        currentGalleryImages.forEach((img, index) => {
+          const thumbButton = document.createElement('button');
+          thumbButton.className = `image-modal-thumb${index === currentImageIndex ? ' active' : ''}`;
+          thumbButton.type = 'button';
+          thumbButton.setAttribute('aria-label', `Mở ảnh ${index + 1}`);
+
+          const thumbImg = document.createElement('img');
+          thumbImg.src = img.src;
+          thumbImg.alt = img.alt || `Ảnh hướng dẫn ${index + 1}`;
+
+          thumbButton.appendChild(thumbImg);
+          thumbButton.addEventListener('click', () => showModalImage(index));
+          imageModalThumbs.appendChild(thumbButton);
+        });
+
+        imageModalThumbs.style.display = areThumbsVisible ? 'flex' : 'none';
+      }
+
+      function showModalImage(index) {
+        if (!imageModalImg || !imageModalCaption || !currentGalleryImages.length) return;
+        const safeIndex = Math.max(0, Math.min(index, currentGalleryImages.length - 1));
+        const img = currentGalleryImages[safeIndex];
+
+        currentImageIndex = safeIndex;
+        imageModalImg.src = img.src;
+        imageModalImg.alt = img.alt || 'Ảnh hướng dẫn phóng to';
+        imageModalCaption.textContent = img.alt || 'Ảnh hướng dẫn';
+        resetImageView();
+        updateModalNav();
+        renderThumbnails();
+      }
+
+      function openImageModal(img) {
+        if (!imageModal || !imageModalImg || !imageModalCaption) return;
+        const guideContainer = img.closest('.guide-content');
+        currentGalleryImages = Array.from((guideContainer || document).querySelectorAll('.step img'));
+        currentImageIndex = Math.max(0, currentGalleryImages.indexOf(img));
+        showModalImage(currentImageIndex);
+        imageModal.classList.add('active');
+        imageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
 
     function closeImageModal() {
       if (!imageModal || !imageModalImg) return;
-      imageModal.classList.remove('active');
-      imageModal.setAttribute('aria-hidden', 'true');
-      imageModalImg.src = '';
-      document.body.style.overflow = '';
-    }
+        imageModal.classList.remove('active');
+        imageModal.setAttribute('aria-hidden', 'true');
+        imageModalImg.src = '';
+        resetImageView();
+        document.body.style.overflow = '';
+      }
 
-    zoomableImages.forEach(img => {
-      img.setAttribute('title', 'Bấm để phóng to ảnh');
-      img.addEventListener('click', () => openImageModal(img));
-    });
+      function showPrevImage() {
+        if (currentGalleryImages.length <= 1) return;
+        const nextIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+        showModalImage(nextIndex);
+      }
 
-    if (imageModalClose) {
-      imageModalClose.addEventListener('click', closeImageModal);
-    }
+      function showNextImage() {
+        if (currentGalleryImages.length <= 1) return;
+        const nextIndex = (currentImageIndex + 1) % currentGalleryImages.length;
+        showModalImage(nextIndex);
+      }
 
-    if (imageModal) {
-      imageModal.addEventListener('click', function (e) {
-        if (e.target === imageModal) {
-          closeImageModal();
+      function openShortcutMenu() {
+        if (!shortcutMenu) return;
+        shortcutMenu.classList.add('active');
+        shortcutMenu.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeShortcutMenu() {
+        if (!shortcutMenu) return;
+        shortcutMenu.classList.remove('active');
+        shortcutMenu.setAttribute('aria-hidden', 'true');
+      }
+
+      zoomableImages.forEach(img => {
+        img.setAttribute('title', 'Bấm để phóng to ảnh');
+        img.addEventListener('click', () => openImageModal(img));
+      });
+
+      if (imageModalClose) {
+        imageModalClose.addEventListener('click', closeImageModal);
+      }
+
+      if (imageModalPrev) {
+        imageModalPrev.addEventListener('click', showPrevImage);
+      }
+
+      if (imageModalNext) {
+        imageModalNext.addEventListener('click', showNextImage);
+      }
+
+      if (imageModalReset) {
+        imageModalReset.addEventListener('click', resetImageView);
+      }
+
+      if (imageModalThumbToggle && imageModalThumbs) {
+        imageModalThumbToggle.addEventListener('click', function () {
+          areThumbsVisible = !areThumbsVisible;
+          imageModalThumbs.style.display = areThumbsVisible ? 'flex' : 'none';
+        });
+      }
+
+      if (shortcutMenuClose) {
+        shortcutMenuClose.addEventListener('click', closeShortcutMenu);
+      }
+
+      if (shortcutMenu) {
+        shortcutMenu.addEventListener('click', function (e) {
+          if (e.target === shortcutMenu) {
+            closeShortcutMenu();
+          }
+        });
+      }
+
+      if (imageModal) {
+        imageModal.addEventListener('click', function (e) {
+          if (e.target === imageModal) {
+            closeImageModal();
         }
+      });
+
+      imageModal.addEventListener('wheel', function (e) {
+        if (!imageModal.classList.contains('active') || !imageModalImg.src) return;
+
+        e.preventDefault();
+        const zoomStep = 0.15;
+        const minScale = 0.8;
+        const maxScale = 4;
+
+        if (e.deltaY < 0) {
+          currentImageScale = Math.min(maxScale, currentImageScale + zoomStep);
+        } else {
+          currentImageScale = Math.max(minScale, currentImageScale - zoomStep);
+        }
+
+        if (currentImageScale <= 1) {
+          currentTranslateX = 0;
+          currentTranslateY = 0;
+        }
+
+        applyImageZoom();
+      }, { passive: false });
+    }
+
+    if (imageModalImg) {
+      imageModalImg.addEventListener('dblclick', function (e) {
+        e.preventDefault();
+
+        if (currentImageScale > 1) {
+          currentImageScale = 1;
+          currentTranslateX = 0;
+          currentTranslateY = 0;
+        } else {
+          currentImageScale = defaultDoubleClickScale;
+        }
+
+        applyImageZoom();
+      });
+
+      imageModalImg.addEventListener('mousedown', function (e) {
+        if (currentImageScale <= 1) return;
+
+        e.preventDefault();
+        isDraggingImage = true;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        dragOriginX = currentTranslateX;
+        dragOriginY = currentTranslateY;
+        imageModalImg.classList.add('is-dragging');
       });
     }
 
-    document.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
+    document.addEventListener('mousemove', function (e) {
+      if (!isDraggingImage || !imageModalImg) return;
+
+      currentTranslateX = dragOriginX + (e.clientX - dragStartX);
+      currentTranslateY = dragOriginY + (e.clientY - dragStartY);
+      applyImageZoom();
     });
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && imageModal && imageModal.classList.contains('active')) {
-        closeImageModal();
-        return;
-      }
+    document.addEventListener('mouseup', function () {
+      if (!isDraggingImage || !imageModalImg) return;
 
-      if (
-        e.key === "F12" ||
+      isDraggingImage = false;
+      imageModalImg.classList.remove('is-dragging');
+      applyImageZoom();
+    });
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        openShortcutMenu();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && imageModal && imageModal.classList.contains('active')) {
+          closeImageModal();
+          return;
+        }
+
+        if (e.key === "Escape" && shortcutMenu && shortcutMenu.classList.contains('active')) {
+          closeShortcutMenu();
+          return;
+        }
+
+        if (imageModal && imageModal.classList.contains('active')) {
+          if (e.key === "ArrowLeft") {
+            showPrevImage();
+            return;
+          }
+
+          if (e.key === "ArrowRight") {
+            showNextImage();
+            return;
+          }
+        }
+
+        if (
+          e.key === "F12" ||
         (e.ctrlKey && e.shiftKey && e.key === "I") ||
         (e.ctrlKey && e.key === "U")
-      ) {
-        e.preventDefault();
-        const warning = document.getElementById("block-warning");
-        if (warning) warning.style.display = "block";
-      }
-    });
+        ) {
+          e.preventDefault();
+          openShortcutMenu();
+        }
+      });
   </script>
 </body>
 </html>
