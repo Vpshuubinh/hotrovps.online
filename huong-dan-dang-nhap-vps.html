@@ -29,6 +29,13 @@
       max-width: 100%;
       border-radius: 10px;
       margin-top: 10px;
+      cursor: zoom-in;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    }
+    .step img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 28px rgba(0, 255, 204, 0.35);
+      filter: brightness(1.05);
     }
     .back-link {
       display: block;
@@ -37,246 +44,287 @@
       color: lime;
       text-decoration: none;
     }
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      cursor: zoom-out;
+    }
+    .image-modal.active {
+      display: flex;
+    }
+    .image-modal-content {
+      position: relative;
+      max-width: min(1100px, 92vw);
+      max-height: 92vh;
+      text-align: center;
+    }
+    .image-modal img {
+      max-width: 100%;
+      max-height: 82vh;
+      border-radius: 16px;
+      box-shadow: 0 0 35px rgba(0, 255, 204, 0.35);
+      cursor: default;
+    }
+    .image-modal-caption {
+      margin-top: 14px;
+      color: #d8fff7;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .image-modal-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: #00ff66;
+      color: #001b0f;
+      font-size: 26px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.45);
+    }
+    .image-modal-hint {
+      margin-top: 10px;
+      color: #9ae7d8;
+      font-size: 13px;
+      opacity: 0.85;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 class="title">Hướng Dẫn Đăng Nhập VPS</h1>
-  <h1 class="title">Hãy chọn thiết bị mà bạn đang sử dụng</h1>
+    <h1 class="title">Hãy chọn thiết bị mà bạn đang sử dụng</h1>
     <div class="device-selector">
       <button onclick="showGuide('iphone')">📱 iPhone</button>
       <button onclick="showGuide('android')">🤖 Android</button>
       <button onclick="showGuide('pc')">💻 PC</button>
     </div>
 
-    <!-- iPhone -->
-
-
     <div id="iphone" class="guide-content">
       <div class="step">
         <h2>Bước 1</h2>
-        <p>Mở ứng dụng App Store lên tìm kiếp từ khóa "Windows App" và tải về </p>
+        <p>Mở ứng dụng App Store, tìm kiếm từ khóa "Windows App" và tải về.</p>
         <img src="images/1ipwd-portrait.png" alt="iPhone bước 1">
       </div>
-   
+
       <div class="step">
         <h2>Bước 2</h2>
-        <p>Sau khi tải về xong mở app lên và chọn "Skip"</p>
+        <p>Sau khi tải về xong, mở ứng dụng lên và chọn "Skip".</p>
         <img src="images/2ipwd-portrait.png" alt="iPhone bước 2">
-        <div class="step">
-  
-          <h2>Bước 3</h2>
-          <p>Mở ứng dụng App Store lên tìm kiếp từ khóa "Windows App" và tải về </p>
-          <img src="images/3.png" alt="iPhone bước 3">
-        </div>
+      </div>
 
-        <div class="step">
-          <h2>Bước 4</h2>
-          <p>Chọn PC </p>
-          <img src="images/4ipwd-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 3</h2>
+        <p>Tiếp tục mở ứng dụng và làm theo giao diện hướng dẫn trên màn hình.</p>
+        <img src="images/3.png" alt="iPhone bước 3">
+      </div>
 
-        <div class="step">
-          <h2>Bước 5</h2>
-          <p>Tại PC Name nhập IP của VPS vào </p>
-          <p>Nhập xong ấn quay trở lại </p>
-          <img src="images/5-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 4</h2>
+        <p>Chọn mục PC.</p>
+        <img src="images/4ipwd-portrait.png" alt="iPhone bước 4">
+      </div>
 
-        <div class="step">
-          <h2>Bước 6</h2>
-          <p> Tại mục Add PC </p>
-          <p> Chọn Credentials </p>
-          <img src="images/6-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 5</h2>
+        <p>Tại mục PC Name, nhập IP của VPS vào.</p>
+        <p>Nhập xong, nhấn quay trở lại.</p>
+        <img src="images/5-portrait.png" alt="iPhone bước 5">
+      </div>
 
-        <div class="step">
-          <h2>Bước 7</h2>
-          <p> Chọn Add Credentials </p>
-          <img src="images/đuuud-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 6</h2>
+        <p>Tại mục Add PC, chọn Credentials.</p>
+        <img src="images/6-portrait.png" alt="iPhone bước 6">
+      </div>
 
+      <div class="step">
+        <h2>Bước 7</h2>
+        <p>Chọn Add Credentials.</p>
+        <img src="images/đuuud-portrait.png" alt="iPhone bước 7">
+      </div>
 
-        <div class="step">
-          <h2>Bước 8</h2>
-          <p> Tại Add Credentials có 2 dòng user và pass </p>
-          <p> User: Nhập User ( Thường User mặc định là Administrator ) </p>
-          <p> Pass: Nhập Pass của VPS vào đây </p>
-          <p> Nhập xong User và Pass thì bấm Save ở góc bên phải </p>
-          <img src="images/b8-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 8</h2>
+        <p>Tại Add Credentials có 2 dòng User và Pass.</p>
+        <p>User: Nhập User của VPS, thường mặc định là Administrator.</p>
+        <p>Pass: Nhập mật khẩu VPS vào đây.</p>
+        <p>Nhập xong User và Pass thì bấm Save ở góc bên phải.</p>
+        <img src="images/b8-portrait.png" alt="iPhone bước 8">
+      </div>
 
-        <div class="step">
-          <h2>Bước 9</h2>
-          <p> Khi quay trở lại mục Add PC thì chọn Save ở góc màn hình bên phải 1 lần nữa </p>
-          <img src="images/b9-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 9</h2>
+        <p>Khi quay trở lại mục Add PC thì chọn Save ở góc màn hình bên phải thêm một lần nữa.</p>
+        <img src="images/b9-portrait.png" alt="iPhone bước 9">
+      </div>
 
-        <div class="step">
-          <h2>Bước 10</h2>
-          <p> Tại đây VPS đã xuất hiện bạn chỉ cần chọn vào nó  </p>
-          <img src="images/b10-portrait.png" alt="iPhone bước 3">
-        </div>
+      <div class="step">
+        <h2>Bước 10</h2>
+        <p>Tại đây VPS đã xuất hiện, bạn chỉ cần chọn vào đó.</p>
+        <img src="images/b10-portrait.png" alt="iPhone bước 10">
+      </div>
 
-        <div class="step">
-          <h2>Bước 11</h2>
-          <p> Tới đây là bạn đã vào được VPS rồi </p>
-          <img src="images/b11-portrait.png" alt="iPhone bước 3">
-        </div>
-
+      <div class="step">
+        <h2>Bước 11</h2>
+        <p>Tới đây là bạn đã vào được VPS rồi.</p>
+        <img src="images/b11-portrait.png" alt="iPhone bước 11">
       </div>
     </div>
 
-
-
-    <!-- Android -->
     <div id="android" class="guide-content">
       <div class="step">
         <h2>Bước 1</h2>
-        <p> Vì ở Remote Desktop đã chuyển đổi qua Windows App </p>
-        <p> Chính vì thế hãy tìm kiếm từ khóa trên ChPlay "Remote" Hoặc "Widows App"</p>
-        <p>Sau đó tải nó về</p>
+        <p>Vì ứng dụng Remote Desktop đã chuyển đổi qua Windows App.</p>
+        <p>Chính vì thế hãy tìm kiếm trên CH Play từ khóa "Remote" hoặc "Windows App".</p>
+        <p>Sau đó tải ứng dụng về.</p>
         <img src="androi/b1 sua-portrait.png" alt="Android bước 1">
-</div>
+      </div>
 
-        <div class="step">
-          <h2>Bước 2</h2>
-          <p> Sau khi tải về mở nó lên sẽ có giao diện như này </p>
-          <p>Bấm chọn "Accept"</p>
-          <img src="androi/buoc2-portrait.png" alt="Android bước 2">
-        </div>
+      <div class="step">
+        <h2>Bước 2</h2>
+        <p>Sau khi tải về, mở ứng dụng lên sẽ có giao diện như hình.</p>
+        <p>Bấm chọn "Accept".</p>
+        <img src="androi/buoc2-portrait.png" alt="Android bước 2">
+      </div>
 
-          <div class="step">
-            <h2>Bước 3</h2>
-            <p>Bấm chọn "PC connection"</p>
-            <img src="androi/buoc3-portrait.png" alt="Android bước 3">
-            </div>
+      <div class="step">
+        <h2>Bước 3</h2>
+        <p>Bấm chọn "PC connection".</p>
+        <img src="androi/buoc3-portrait.png" alt="Android bước 3">
+      </div>
 
-            <div class="step">
-              <h2>Bước 4</h2>
-              <p>Bấm chọn "Skip"</p>
-              <img src="androi/buoc4-portrait.png" alt="Android bước 4">
-</div>
+      <div class="step">
+        <h2>Bước 4</h2>
+        <p>Bấm chọn "Skip".</p>
+        <img src="androi/buoc4-portrait.png" alt="Android bước 4">
+      </div>
 
-              <div class="step">
-                <h2>Bước 5</h2>
-                <p>Sau khi bấm "Skip" thì sẽ chuyển hướng tới giao diện của "Add PC"</p>
-                <p>Tại "Add PC" bạn hãy chú ý tới mục "PC name"</p>
-                <p>Chỗ này bạn Nhập IP của VPS vào đây</p>
-                <img src="androi/b5.png" alt="Android bước 5">
-              </div>
+      <div class="step">
+        <h2>Bước 5</h2>
+        <p>Sau khi bấm "Skip" thì sẽ chuyển tới giao diện "Add PC".</p>
+        <p>Tại "Add PC", bạn hãy chú ý tới mục "PC Name".</p>
+        <p>Chỗ này bạn nhập IP của VPS vào đây.</p>
+        <img src="androi/b5.png" alt="Android bước 5">
+      </div>
 
-                <div class="step">
-                  <h2>Bước 6</h2>
-                  <p>Sau khi nhập IP của VPS xong </p>
-                  <p>Thì ở phần USER ACCOUNT</p>
-                  <P>Bấm chọn "Ask when required"</P>
-                  <img src="androi/b6-portrait.png" alt="Android bước 6">
-                </div>
+      <div class="step">
+        <h2>Bước 6</h2>
+        <p>Sau khi nhập IP của VPS xong, ở phần USER ACCOUNT.</p>
+        <p>Bấm chọn "Ask when required".</p>
+        <img src="androi/b6-portrait.png" alt="Android bước 6">
+      </div>
 
-                  <div class="step">
-                    <h2>Bước 7</h2>
-                    <p>Chọn "Add user account"</p>
-                    <img src="androi/b7-portrait.png" alt="Android bước 7">
-                  </div>
+      <div class="step">
+        <h2>Bước 7</h2>
+        <p>Chọn "Add user account".</p>
+        <img src="androi/b7-portrait.png" alt="Android bước 7">
+      </div>
 
-                    <div class="step">
-                      <h2>Bước 8</h2>
-                      <p>Tại giao diện Add user account </p>
-                      <p> USERNAME: Nhập Username VPS ( Thường User mặc định là Administrator ) </p>
-                      <p> PASSWORD: Nhập Pass của VPS vào đây </p>
-                      <P> Nhập xong ở ngay dưới chọn "SAVE" </P>
-                      <img src="androi/b8-portrait.png" alt="Android bước 8">
-</div>
+      <div class="step">
+        <h2>Bước 8</h2>
+        <p>Tại giao diện Add user account.</p>
+        <p>USERNAME: Nhập Username VPS, thường mặc định là Administrator.</p>
+        <p>PASSWORD: Nhập mật khẩu VPS vào đây.</p>
+        <p>Nhập xong thì chọn "SAVE" ở ngay phía dưới.</p>
+        <img src="androi/b8-portrait.png" alt="Android bước 8">
+      </div>
 
+      <div class="step">
+        <h2>Bước 9</h2>
+        <p>Tại đây, ở góc phải màn hình chọn SAVE.</p>
+        <img src="androi/b9 da sua.jpg" alt="Android bước 9">
+      </div>
 
-                      <div class="step">
-                        <h2>Bước 9</h2>
-                        <p>Tại đây góc phải ở màn hình chọn SAVE </p>
-                        <img src="androi/b9 da sua.jpg" alt="Android bước 9">  
-                      </div>
+      <div class="step">
+        <h2>Bước 10</h2>
+        <p>Tại đây VPS đã xuất hiện, bạn hãy bấm chọn để vào VPS.</p>
+        <img src="androi/b10-portrait.png" alt="Android bước 10">
+      </div>
 
+      <div class="step">
+        <h2>Bước 11</h2>
+        <p>Ở mục "Never ask again for connections to this PC".</p>
+        <p>Bấm vào ô vuông để lần sau ứng dụng sẽ không hỏi nữa.</p>
+        <img src="androi/b11-portrait.png" alt="Android bước 11">
+      </div>
 
-                        <div class="step">
-                          <h2>Bước 10</h2>
-                          <p>Tại đây VPS đã xuất hiện bạn hãy bấm chọn để vào VPS</p>
-                          <img src="androi/b10-portrait.png" alt="Android bước 10">
-</div>
-
-
-
-                          <div class="step">
-                            <h2>Bước 11</h2>
-                            <p>Ở "Never ask again for connections to this PC"</p>
-                            <p> Bấm vào ô vuông để lần sau sẽ không hỏi nữa</p>
-                            <img src="androi/b11-portrait.png" alt="Android bước 11">  
-                          </div>
-
-                            <div class="step">
-                              <h2>Bước 12</h2>
-                              <p>Vậy là đã vào được VPS rồi</p>
-                              <p> Nếu bạn muốn xoay ngang màn hình nhìn như PC</p>
-                              <p>Hãy kéo màn hình của điện thoại xuống tìm Xoay ngang màn hình</p>
-                              <p>Là được VPS Hữu Bình TM xin chúc mọi người thành công </p>
-                              <img src="androi/b12-portrait.png" alt="Android bước 12">
-
-                            </div>
+      <div class="step">
+        <h2>Bước 12</h2>
+        <p>Vậy là đã vào được VPS rồi.</p>
+        <p>Nếu bạn muốn xoay ngang màn hình để nhìn như PC.</p>
+        <p>Hãy kéo thanh điều khiển xuống và bật chế độ xoay ngang màn hình.</p>
+        <p>Hữu Bình TM xin chúc mọi người thành công.</p>
+        <img src="androi/b12-portrait.png" alt="Android bước 12">
+      </div>
     </div>
 
-    <!-- PC -->
     <div id="pc" class="guide-content">
       <div class="step">
         <h2>Bước 1</h2>
-        <p>Tại màn hình Desktop bấm chọn cửa sổ Windows</p>
+        <p>Tại màn hình Desktop, bấm chọn cửa sổ Windows.</p>
         <img src="pc/pc1-front.png" alt="Đăng nhập bước 1">
       </div>
+
       <div class="step">
         <h2>Bước 2</h2>
-        <p>Gõ "Remote desktop connection"</p>
-        <p>Bấm chọn Open</p>
+        <p>Gõ "Remote Desktop Connection".</p>
+        <p>Bấm chọn Open.</p>
         <img src="pc/b2.png" alt="Đăng nhập bước 2">
       </div>
+
       <div class="step">
         <h2>Bước 3</h2>
-        <p>Tại giao diện Remote desktop được hiển thị lên</p>
-        <p>Computer: Nhập địa chỉ IP VPS </p>
-        <p> Sau đó nhấn vào nút "Show Option"</p>
+        <p>Tại giao diện Remote Desktop được hiển thị lên.</p>
+        <p>Computer: Nhập địa chỉ IP VPS.</p>
+        <p>Sau đó nhấn vào nút "Show Options".</p>
         <img src="pc/b3.png" alt="Đăng nhập bước 3">
       </div>
+
       <div class="step">
         <h2>Bước 4</h2>
-        <p>User name: Nhập Username VPS ( Thường Username mặc định là Administrator )</p>
-        <p>Nhập xong thì chọn nút "Connect"</p>
+        <p>User name: Nhập Username VPS, thường mặc định là Administrator.</p>
+        <p>Nhập xong thì chọn nút "Connect".</p>
         <img src="pc/b4.png" alt="Đăng nhập bước 4">
       </div>
+
       <div class="step">
         <h2>Bước 5</h2>
-        <p>Tại đây phần "Password" nhập mật khẩu của VPS vào </p>
-        <p>Sau khi nhập xong bấm chọn ô vuông của "Remember me"</p>
-        <p>Sau đó chọn "Ok"</p>
+        <p>Tại đây, phần "Password" nhập mật khẩu của VPS vào.</p>
+        <p>Sau khi nhập xong, bấm chọn ô vuông của "Remember me".</p>
+        <p>Sau đó chọn "OK".</p>
         <img src="pc/b5.png" alt="Đăng nhập bước 5">
       </div>
+
       <div class="step">
         <h2>Bước 6</h2>
-        <p>Sau đó hộp thoại con hiện lên</p>
-        <p>Bấm chọn ô vuông con trong hộp thoại "Don't ask me again for connections to this computer"</p>
-        <p>Sau đó chọn "Yes"</p>
+        <p>Sau đó hộp thoại hiện lên.</p>
+        <p>Bấm chọn ô vuông trong hộp thoại "Don't ask me again for connections to this computer".</p>
+        <p>Sau đó chọn "Yes".</p>
         <img src="pc/b6.png" alt="Đăng nhập bước 6">
       </div>
 
       <div class="step">
         <h2>Bước 7</h2>
-        <p>Vậy là đã vào được VPS rồi</p>
-        <p>VPS Hữu Bình TM xin chúc mọi người thành công </p>
+        <p>Vậy là đã vào được VPS rồi.</p>
+        <p>VPS Hữu Bình TM xin chúc mọi người thành công.</p>
         <img src="pc/b7.png" alt="Đăng nhập bước 7">
       </div>
-
     </div>
 
     <a href="index.html" class="back-link">← Quay về Trang Chủ</a>
   </div>
 
-  <!-- Liên hệ nổi -->
   <div class="contact-box">
     <button class="contact-toggle">Liên hệ 📞</button>
     <div class="contact-options">
@@ -288,20 +336,27 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <a href="http://huubinhtm.id.vn/" target="_blank" style="color: #00ffcc; text-decoration: none;">
       Hữu Bình TM
     </a> © <span id="today"></span>. All rights reserved.
   </footer>
 
-  <!-- Cảnh báo chống copy -->
   <div id="block-warning" style="display: none; position: fixed; top: 0; left: 0;
     width: 100%; height: 100%; background: rgba(0,0,0,0.95);
     color: white; text-align: center; z-index: 9999; padding-top: 100px;">
-    <h2 style="font-size: 28px;">Nào !!! Thuê VPS đi anh chị nhìn web lỏ này làm gì nữa 😵  </h2>
+    <h2 style="font-size: 28px;">Nào! Thuê VPS đi anh chị, nhìn web lỏ này làm gì nữa 😵</h2>
     <img src="https://media1.tenor.com/m/OMkRKfzekroAAAAd/qt-sexy.gif"
          alt="GIF cảnh báo" style="max-width: 300px; margin-top: 20px; border-radius: 12px;">
+  </div>
+
+  <div class="image-modal" id="imageModal" aria-hidden="true">
+    <div class="image-modal-content">
+      <button class="image-modal-close" id="imageModalClose" aria-label="Đóng ảnh phóng to">×</button>
+      <img id="imageModalImg" src="" alt="">
+      <div class="image-modal-caption" id="imageModalCaption"></div>
+      <div class="image-modal-hint">Bấm ra ngoài ảnh hoặc nhấn ESC để đóng.</div>
+    </div>
   </div>
 
   <script>
@@ -312,7 +367,6 @@
       });
     }
 
-    // Toggle liên hệ
     const contactToggle = document.querySelector('.contact-toggle');
     const contactBox = document.querySelector('.contact-box');
     if (contactToggle && contactBox) {
@@ -321,14 +375,12 @@
       });
     }
 
-    // Auto ẩn khi click ra ngoài
     document.addEventListener('click', function (e) {
-      if (!contactBox.contains(e.target)) {
+      if (contactBox && !contactBox.contains(e.target)) {
         contactBox.classList.remove('active');
       }
     });
 
-    // Hiển thị ngày tự động cho footer
     const dateSpan = document.getElementById('today');
     if (dateSpan) {
       const today = new Date();
@@ -336,12 +388,57 @@
       dateSpan.textContent = formatted;
     }
 
-    // Chống F12, Ctrl+U, Ctrl+Shift+I
+    const zoomableImages = document.querySelectorAll('.step img');
+    const imageModal = document.getElementById('imageModal');
+    const imageModalImg = document.getElementById('imageModalImg');
+    const imageModalCaption = document.getElementById('imageModalCaption');
+    const imageModalClose = document.getElementById('imageModalClose');
+
+    function openImageModal(img) {
+      if (!imageModal || !imageModalImg || !imageModalCaption) return;
+      imageModalImg.src = img.src;
+      imageModalImg.alt = img.alt || 'Ảnh hướng dẫn phóng to';
+      imageModalCaption.textContent = img.alt || 'Ảnh hướng dẫn';
+      imageModal.classList.add('active');
+      imageModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      if (!imageModal || !imageModalImg) return;
+      imageModal.classList.remove('active');
+      imageModal.setAttribute('aria-hidden', 'true');
+      imageModalImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    zoomableImages.forEach(img => {
+      img.setAttribute('title', 'Bấm để phóng to ảnh');
+      img.addEventListener('click', () => openImageModal(img));
+    });
+
+    if (imageModalClose) {
+      imageModalClose.addEventListener('click', closeImageModal);
+    }
+
+    if (imageModal) {
+      imageModal.addEventListener('click', function (e) {
+        if (e.target === imageModal) {
+          closeImageModal();
+        }
+      });
+    }
+
     document.addEventListener("contextmenu", function (e) {
       e.preventDefault();
     });
 
     document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && imageModal && imageModal.classList.contains('active')) {
+        closeImageModal();
+        return;
+      }
+
       if (
         e.key === "F12" ||
         (e.ctrlKey && e.shiftKey && e.key === "I") ||
