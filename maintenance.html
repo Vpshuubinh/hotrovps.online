@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đang Bảo Trì Website</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ffcc;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    img {
+      width: 300px;
+      max-width: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Website đang được bảo trì</h1>
+  <p>Chúng tôi đang nâng cấp hệ thống.<br>Vui lòng quay lại sau ít phút. Cảm ơn bạn đã ghé thăm 💚</p>
+  <img src="https://media.tenor.com/2roX3uxz_68AAAAC/work-in-progress.gif" alt="Đang bảo trì">
+
+  <footer>
+    <a href="http://huubinhtm.id.vn/" target="_blank" style="color: #00ffcc; text-decoration: none;">
+      Hữu Bình TM
+    </a> © <span id="today"></span>. All rights reserved.
+  </footer>
+
+  <script>
+    const today = new Date();
+    document.getElementById('today').textContent = today.toLocaleDateString('vi-VN');
+  </script>
+</body>
+</html>

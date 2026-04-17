@@ -1,0 +1,251 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Tổng thể */
+body {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+/* Container chính */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Tiêu đề chính */
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+/* Phần từng bước */
+.step {
+  margin-bottom: 40px;
+}
+
+.step h2 {
+  color: #00ffcc;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 5px #00ffcc;
+}
+
+.step p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.step img {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00ffcc;
+  margin-top: 10px;
+  height: auto;
+}
+
+/* Link quay lại */
+.back-link {
+  color: #9900ff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.back-link:hover {
+  color: #00ffcc;
+}
+
+/* Phần chọn thiết bị */
+.device-selector {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.device-selector button {
+  background-color: transparent;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 10px 25px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.device-selector button:hover {
+  background-color: #00ff00;
+  color: black;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+/* Hướng dẫn thiết bị (ẩn/hiện) */
+.guide-content {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header - nếu dùng */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #000;
+  border-bottom: 2px solid #00ff00;
+}
+
+.logo {
+  color: #00ff00;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+} */
+
+nav a {
+  color: #fff;
+  border: 1px solid #00ff00;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  background-color: #00ff00;
+  color: #000;
+}
+
+/* Menu mobile toggle */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: #00ff00;
+}
+
+/* Hộp liên hệ nổi */
+.contact-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  text-align: right;
+}
+
+.contact-toggle {
+  background-color: #00ff00;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.contact-options {
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
+  background: #000;
+  border: 1px solid #00ff00;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.contact-options a {
+  color: #00ff00;
+  text-decoration: none;
+  margin: 5px 0;
+  display: block;
+  transition: 0.3s;
+}
+
+.contact-options a:hover {
+  color: #000;
+  background-color: #00ff00;
+  padding-left: 5px;
+}
+
+/* Hiển thị khi mở */
+.contact-box.active .contact-options {
+  display: flex;
+}
+
+/* Footer */
+footer {
+  color: white;
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid white;
+  font-size: 14px;
+}
+
+
+/* Responsive cho màn nhỏ */
+/* @media (max-width: 768px) { */
+  nav {
+    display: none;
+    flex-direction: column;
+    background-color: #000;
+    padding: 1rem;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    border: 1px solid #00ff00;
+  }
+
+  nav.active {
+    display: flex;
+  }
+
+  /* .menu-toggle {
+    display: flex;
+  } */
+
+  /* .step img {
+    max-width: 100%;
+  } */
+
+  .title {
+    font-size: 28px;
+  }
+/* } */

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng Dẫn Nâng Cấp Cấu Hình VPS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Hướng Dẫn Nâng Cấp Cấu Hình VPS</h1>
+
+    <div class="step">
+      <h2>Bước 1</h2>
+      <p>Truy cập vào trang quản lý dịch vụ VPS.</p>
+      <img src="img/nang-cap-buoc1.png" alt="Nâng cấp bước 1">
+    </div>
+
+    <div class="step">
+      <h2>Bước 2</h2>
+      <p>Chọn VPS bạn muốn nâng cấp.</p>
+      <img src="img/nang-cap-buoc2.png" alt="Nâng cấp bước 2">
+    </div>
+
+    <div class="step">
+      <h2>Bước 3</h2>
+      <p>Chọn mục "Nâng cấp" hoặc "Upgrade" từ menu điều khiển.</p>
+      <img src="img/nang-cap-buoc3.png" alt="Nâng cấp bước 3">
+    </div>
+
+    <div class="step">
+      <h2>Bước 4</h2>
+      <p>Chọn cấu hình mới phù hợp với nhu cầu (CPU, RAM, Storage...).</p>
+      <img src="img/nang-cap-buoc4.png" alt="Nâng cấp bước 4">
+    </div>
+
+    <div class="step">
+      <h2>Bước 5</h2>
+      <p>Thanh toán và đợi hệ thống hoàn tất nâng cấp.</p>
+      <img src="img/nang-cap-buoc5.png" alt="Nâng cấp bước 5">
+    </div>
+
+    <a href="index.html" class="back-link">← Quay về Trang Chủ</a>
+  </div>
+
+  <!-- Liên hệ nổi -->
+  <div class="contact-box">
+    <button class="contact-toggle">Liên hệ 📞</button>
+    <div class="contact-options">
+      <a href="tel:0123456789">📞 Hotline</a>
+      <a href="https://zalo.me/123456789" target="_blank">💬 Zalo</a>
+      <a href="https://t.me/tenkenh" target="_blank">📢 Telegram</a>
+      <a href="https://facebook.com/tenpage" target="_blank">📘 Facebook</a>
+      <a href="mailto:support@example.com">📧 Email hỗ trợ</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <a href="http://huubinhtm.id.vn/" target="_blank" style="color: #00ffcc; text-decoration: none;">
+      Hữu Bình TM
+    </a> © <span id="today"></span>. All rights reserved.
+  </footer>
+
+  <!-- Cảnh báo khi bấm F12 -->
+  <div id="block-warning" style="display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+    color: white; text-align: center; z-index: 9999; padding-top: 100px;">
+    <h2 style="font-size: 28px;">Nào !!! Thuê VPS đi anh chị nhìn web lỏ này làm gì nữa 😵  </h2>
+    <img src="https://media1.tenor.com/m/OMkRKfzekroAAAAd/qt-sexy.gif"
+         alt="GIF cảnh báo" style="max-width: 300px; margin-top: 20px; border-radius: 12px;">
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Toggle liên hệ
+    const contactToggle = document.querySelector('.contact-toggle');
+    const contactBox = document.querySelector('.contact-box');
+    if (contactToggle && contactBox) {
+      contactToggle.addEventListener('click', () => {
+        contactBox.classList.toggle('active');
+      });
+    }
+
+    // Auto ẩn khi click ra ngoài
+    document.addEventListener('click', function (e) {
+      if (!contactBox.contains(e.target)) {
+        contactBox.classList.remove('active');
+      }
+    });
+
+    // Hiển thị ngày tự động cho footer
+    const dateSpan = document.getElementById('today');
+    if (dateSpan) {
+      const today = new Date();
+      const formatted = today.toLocaleDateString('vi-VN');
+      dateSpan.textContent = formatted;
+    }
+
+    // Chặn F12, Ctrl+U, Ctrl+Shift+I
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && e.key === "I") ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        const warning = document.getElementById("block-warning");
+        if (warning) warning.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

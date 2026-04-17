@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đang Bảo Trì Website</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ffcc;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    img {
+      width: 300px;
+      max-width: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Website đang được bảo trì</h1>
+  <p>Phần gia hạn VPS này đang được code .<br>Nếu bạn muốn gia hạn vui lòng liên hệ CSKH của VPS Hữu Bình TM sau nha</p>
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJ0cXJyeXdvamk2NHRnMXM5YnkwaDV4bzIyazJqOGdsaXc3eWtqaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uQEfc0i4QNw7LBlrLW/giphy.gif" alt="Đang bảo trì">
+
+  <footer>
+    <a href="http://huubinhtm.id.vn/" target="_blank" style="color: #00ffcc; text-decoration: none;">
+      Hữu Bình TM
+    </a> © <span id="today"></span>. All rights reserved.
+  </footer>
+
+  <script>
+    const today = new Date();
+    document.getElementById('today').textContent = today.toLocaleDateString('vi-VN');
+  </script>
+</body>
+</html>
